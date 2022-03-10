@@ -1,5 +1,6 @@
 import { FormControl, FormLabel, Input, FormHelperText, Box } from "@chakra-ui/react";
 import { Formik } from "formik";
+import InputField from "../components/input-field";
 
 const Register = () => {
     return (
@@ -7,11 +8,8 @@ const Register = () => {
             <Formik initialValues={{ username: '', password: '' }} onSubmit={(values) => console.log(values)}>
                 {() => (
                     <form>
-                        <FormControl>
-                            <FormLabel htmlFor='username'>Username</FormLabel>
-                            <Input id='username' type='text' />
-                            {/* <FormHelperText>We'll never share your email.</FormHelperText> */}
-                        </FormControl>
+                        <InputField name="username" label="Username"/>
+                        <InputField name="password" label="Password" type="password" />
                     </form>
                 )}
             </Formik>
