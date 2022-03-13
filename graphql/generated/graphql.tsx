@@ -32,6 +32,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   createPost: Post;
   deletePost: Scalars['Boolean'];
+  login: UserResponse;
   register: UserResponse;
   updatePost: Post;
 };
@@ -45,6 +46,11 @@ export type MutationCreatePostArgs = {
 
 export type MutationDeletePostArgs = {
   id: Scalars['Float'];
+};
+
+
+export type MutationLoginArgs = {
+  credentials: LoginCredentials;
 };
 
 
@@ -68,15 +74,9 @@ export type Post = {
 
 export type Query = {
   __typename?: 'Query';
-  login: UserResponse;
   me: UserResponse;
   post?: Maybe<Post>;
   posts: Array<Post>;
-};
-
-
-export type QueryLoginArgs = {
-  credentials: LoginCredentials;
 };
 
 
@@ -98,6 +98,13 @@ export type UserResponse = {
   user?: Maybe<User>;
 };
 
+export type LoginMutationVariables = Exact<{
+  credentials: LoginCredentials;
+}>;
+
+
+export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', message: string, field: string }> | null, user?: { __typename?: 'User', id: number, username: string } | null } };
+
 export type RegisterMutationVariables = Exact<{
   username: Scalars['String'];
   password: Scalars['String'];
@@ -107,6 +114,24 @@ export type RegisterMutationVariables = Exact<{
 export type RegisterMutation = { __typename?: 'Mutation', register: { __typename?: 'UserResponse', errors?: Array<{ __typename?: 'FieldError', message: string, field: string }> | null, user?: { __typename?: 'User', id: number, username: string } | null } };
 
 
+export const LoginDocument = gql`
+    mutation Login($credentials: LoginCredentials!) {
+  login(credentials: $credentials) {
+    errors {
+      message
+      field
+    }
+    user {
+      id
+      username
+    }
+  }
+}
+    `;
+
+export function useLoginMutation() {
+  return Urql.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument);
+};
 export const RegisterDocument = gql`
     mutation Register($username: String!, $password: String!) {
   register(credentials: {username: $username, password: $password}) {

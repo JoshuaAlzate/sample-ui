@@ -1,0 +1,12 @@
+mutation Login($credentials: LoginCredentials!) {
+  login(credentials: $credentials) {
+    errors {
+      message,
+      field
+    },
+    user {
+      id,
+      username
+    }
+  }
+}
