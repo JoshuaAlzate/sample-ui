@@ -5,8 +5,7 @@ mutation Login($credentials: LoginCredentials!) {
       field
     },
     user {
-      id,
-      username
+      ...RegularPerson
     }
   }
 }
