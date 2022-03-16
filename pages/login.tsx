@@ -1,4 +1,4 @@
-import { Box, Button } from "@chakra-ui/react";
+import { Box, Button, Flex } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import { useRouter } from "next/router";
 import InputField from "../components/input-field";
@@ -19,7 +19,10 @@ const Login = () => {
                     <Form>
                         <InputField name="username" label="Username" />
                         <InputField name="password" label="Password" type="password" />
-                        <Button mt={4} isLoading={isSubmitting} type="submit" colorScheme="teal">Login</Button>
+                        <Flex mt={4} justifyContent={'space-between'}>
+                            <Button isLoading={isSubmitting} type="submit" colorScheme="teal">Login</Button>
+                            <Button onClick={() => router.back()} colorScheme="red">Back</Button>
+                        </Flex>
                     </Form>
                 )}
             </Formik>
