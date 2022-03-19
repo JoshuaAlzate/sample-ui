@@ -13,7 +13,7 @@ const NavBar = () => {
         // if(logoutResponse.data?.logout) router.reload();
     }
     let navigationBody = null;
-    if (meData?.me.user) {
+    if (meData?.me?.user) {
         navigationBody = (
             <>
                 <NextLink href={'/login'}>
