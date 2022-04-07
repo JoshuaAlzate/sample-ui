@@ -12,7 +12,7 @@ const Register = () => {
     const [, register] = useRegisterMutation();
     return (
         <Box mt={8} mx={'auto'} maxW={800} w={'100%'}>
-            <Formik initialValues={{ username: '', password: '' }} onSubmit={async (values, { setErrors }) => {
+            <Formik initialValues={{ username: '', password: '', email: '' }} onSubmit={async (values, { setErrors }) => {
                 const response = await register(values);
                 if (response.data?.register.errors) setErrors(toErrorMap(response.data.register.errors));
                 else if (response.data?.register.user) router.push('/');
@@ -20,6 +20,7 @@ const Register = () => {
                 {({ isSubmitting }) => (
                     <Form>
                         <InputField name="username" label="Username" />
+                        <InputField name="email" label="Email" type="email" />
                         <InputField name="password" label="Password" type="password" />
                         <Flex mt={4} justifyContent={'space-between'}>
                             <Button isLoading={isSubmitting} type="submit" colorScheme="teal">Register</Button>
